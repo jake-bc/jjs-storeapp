@@ -4,7 +4,8 @@
   "description": "Node scaffolding for building an app on BigCommerce",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "npm test"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
