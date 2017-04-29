@@ -1,7 +1,4 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
   "name": "hello-world-bigcommerce-node",
   "version": "0.0.1",
   "description": "Node scaffolding for building an app on BigCommerce",
@@ -20,7 +17,7 @@
     "node": "6.10.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/welcome-project"
+    "url": "https://github.com/bigcommerce/hello-world-javascript-node"
   },
   "license": "MIT",
   "keywords": [
