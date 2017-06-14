@@ -4,13 +4,16 @@
   "description": "Node scaffolding for building an app on BigCommerce",
   "main": "server.js",
   "scripts": {
+    "prestart": "mongod --dbpath data --fork --logpath /dev/null",
     "start": "node server.js",
-    "test": "npm test"
+    "poststop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
+    "mongodb": "^2.2.28",
     "node-bigcommerce": "^2.2.1",
     "request": "^2.81.0"
   },
