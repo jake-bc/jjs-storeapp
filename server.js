@@ -24,7 +24,7 @@ var config = {
         accessToken: process.env.ACCESS_TOKEN,
         storeHash: process.env.STORE_HASH,
         scope: process.env.SCOPE,
-        callback: '/',
+        callback: '/auth',
         apiVersion: 'v3',
         responseType: 'json'
     }
