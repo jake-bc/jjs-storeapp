@@ -3,15 +3,15 @@ var path = require('path'),
     request = require('request'),
     BigCommerce = require('node-bigcommerce'),
     exphbs = require('express-handlebars'),
+    mongoose = require("mongoose"),
     dotenv = require('dotenv'),
     assert = require('assert'),
     app = express(),
-    router = express.Router(),
-    url = 'mongodb://localhost:27017/test';
-
-var MongoClient = require('mongodb').MongoClient;
+    cors = require('cors'),
+    router = express.Router();
 
 dotenv.load();
+
 var config = {
     bigCommerce: {
         clientId: process.env.CLIENT_ID,
@@ -19,6 +19,7 @@ var config = {
         accessToken: process.env.ACCESS_TOKEN,
         storeHash: process.env.STORE_HASH,
         scope: process.env.SCOPE,
+        apiVersion: 'v3',
         responseType: 'json'
     }
 };
@@ -29,8 +30,10 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-
-MongoClient.connect(url, function(err, db) {
+// Connect to MongoDB
+const url = process.env.MLABS;
+mongoose
+.connect(url, function(err, db) {
 
     if (err) {
       console.log(err);
@@ -41,9 +44,9 @@ MongoClient.connect(url, function(err, db) {
 
         collection.insert({
             id: 1,
-            storeHash: 'grief',
-            accessToken: 'token',
-            scope: 'store_v2_products'
+            storeHash: process.env.STORE_HASH,
+            accessToken: process.env.ACCESS_TOKEN,
+            scope: process.env.SCOPE
         });
 
         db.collection('Stores').count(function(err, count) {
@@ -53,6 +56,8 @@ MongoClient.connect(url, function(err, db) {
     });
     }
 });
+
+app.use(cors())
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -77,14 +82,27 @@ router.get('/load', function(req, res) {
     });
 });
 
-B.get('/products', null, function(err, data, res) {
+B.get('/catalog/products', null, function(err, data, res) {
     // Catch any errors, or handle the data returned
     // The response object is passed back for convenience
 
     // res.render();
 });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
-    console.log('Your app is listening on port ' + listener.address().port);
+router.get("/products/:product_id", (req, res) => {
+    var product_id = req.params.product_id;//gets xavg234
+    bigCommerce.get('/catalog/products/'+product_id+'/variants?include_fields=calculated_price,inventory_level,sku,option_values,image_url')
+    .then(data => res.json(data))
+    .catch((error) => {
+        console.log('error: ', error)
+        return res.status(404).json({ _err: "No Products Found With ID" });
+      })
 });
+
+
+// listen for requests :)
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
+
+module.exports = app;
