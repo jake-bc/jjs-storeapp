@@ -79,10 +79,6 @@ app.use('/products', products);
 app.get("/", function(req, res) {
     res.render('home');
 });
-
-
-B.get('/catalog/products')
-.then(data => res.json(data))
   
 // listen for requests :)
 const port = process.env.PORT || 5000;
