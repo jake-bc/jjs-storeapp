@@ -8,7 +8,12 @@ var path = require('path'),
     assert = require('assert'),
     app = express(),
     cors = require('cors'),
+    bodyParser = require("body-parser"),
+    auth = require('./routes/auth'),
+    load = require('./routes/load'),
+    products = require('./routes/catalog/products')
     router = express.Router();
+
 
 dotenv.load();
 
@@ -59,49 +64,26 @@ mongoose
 });
 
 app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 app.use(express.static('views'));
+
+app.use('/auth', auth);
+app.use('/load', load);
+app.use('/products', products);
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(req, res) {
     res.render('home');
 });
 
-router.get('/auth', (req, res, next) => {
-    B.authorize(req.query)
-      .then(data => res.render('integrations/auth', { title: 'Authorized!', data: data }))
-      .catch(next);
-    });
 
-router.get('/load',(req, res, next) => {
-    try {
-      const data = B.verify(req.query['signed_payload']);
-      res.render('integrations/welcome', { title: 'Welcome!', data: data });
-    } catch (err) {
-      next(err);
-    }
-  });
-
-B.get('/catalog/products', null, function(err, data, res) {
-    // Catch any errors, or handle the data returned
-    // The response object is passed back for convenience
-
-    // res.render();
-});
-
-router.get("/products/:product_id", (req, res) => {
-    var product_id = req.params.product_id;//gets xavg234
-    bigCommerce.get('/catalog/products/'+product_id+'/variants?include_fields=calculated_price,inventory_level,sku,option_values,image_url')
-    .then(data => res.json(data))
-    .catch((error) => {
-        console.log('error: ', error)
-        return res.status(404).json({ _err: "No Products Found With ID" });
-      })
-});
-
-
+B.get('/catalog/products')
+.then(data => res.json(data))
+  
 // listen for requests :)
 const port = process.env.PORT || 5000;
 
