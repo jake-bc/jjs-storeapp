@@ -19,6 +19,7 @@ var config = {
         accessToken: process.env.ACCESS_TOKEN,
         storeHash: process.env.STORE_HASH,
         scope: process.env.SCOPE,
+        callback: '/',
         apiVersion: 'v3',
         responseType: 'json'
     }
@@ -68,19 +69,20 @@ app.get("/", function(req, res) {
     res.render('home');
 });
 
-router.get('/auth', function(req, res) {
-    B.authorize(req.query, function(err, data) {
-        // TODO: Add code to grab current customer store hash and access token
-
-        // res.render();
+router.get('/auth', (req, res, next) => {
+    B.authorize(req.query)
+      .then(data => res.render('integrations/auth', { title: 'Authorized!', data: data }))
+      .catch(next);
     });
-});
 
-router.get('/load', function(req, res) {
-    B.callback(req.query['sign_payload'], function(err, data) {
-        // res.render();
-    });
-});
+router.get('/load',(req, res, next) => {
+    try {
+      const data = B.verify(req.query['signed_payload']);
+      res.render('integrations/welcome', { title: 'Welcome!', data: data });
+    } catch (err) {
+      next(err);
+    }
+  });
 
 B.get('/catalog/products', null, function(err, data, res) {
     // Catch any errors, or handle the data returned
