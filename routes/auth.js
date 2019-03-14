@@ -10,27 +10,32 @@ const Store = require("../models/Store");
   router.get('/', function(req, res) {
     B.authorize(req.query, function(err, data) {
       res.status(200).json({"body": data})
-
+      var storedata = JSON.parse(data)
+      const newStore = new Store({
+        client_id: process.env.CLIENT_ID,
+        secret: process.env.SECRET,
+        access_token: storedata.access_token || {},
+        scope: storedata.scope || {},
+        user: {
+          id: storedata.user.id || {}
+        },
+        user: {
+          email: storedata.user.email || {}
+        },
+        user_string: JSON.stringify(storedata.user),
+        context: rstoredata.context || {}
+      });
+      newStore
+      .save()
+      .then(store => storeInfo.push(store))
+      .catch(err => console.log(err));
+      
       if (err) throw new Error(err);
-      console.log(err)
-      return data;
+      return storeData;
     })
+    
+  });
 
-    const newStore = new Store({
-      client_id: process.env.CLIENT_ID,
-      secret: process.env.SECRET,
-      access_token: req.body.access_token,
-      scope: req.body.scope,
-      user: req.body.user || {},
-      context: req.body.context || {}
-    });
-
-    newStore
-    .save()
-    .then(store => storeInfo.push(store))
-    .catch(err => console.log(err));
-
-        });
 
 console.log(storeInfo);
  module.exports = router;
