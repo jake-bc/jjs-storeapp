@@ -24,33 +24,6 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-// Connect to MongoDB
-const url = process.env.MLABS;
-mongoose
-    .connect(url, function (err, db) {
-
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("connected");
-
-            db.collection('Stores', function (err, collection) {
-
-                collection.insert({
-                    id: 1,
-                    storeHash: process.env.STORE_HASH,
-                    accessToken: process.env.ACCESS_TOKEN,
-                    scope: process.env.SCOPE
-                });
-
-                db.collection('Stores').count(function (err, count) {
-
-                    console.log('Total Rows: ' + count);
-                });
-            });
-        }
-    });
-
 app.use(cors())
 app.use(bodyParser.urlencoded({
     extended: false
