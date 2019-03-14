@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require("mongoose");
 var B = require('../config/keys').B
 
 // Load User Model
@@ -18,13 +17,12 @@ const Store = require("../models/Store");
     })
 
     const newStore = new Store({
-      client_id: process.env.MLABS,
+      client_id: process.env.CLIENT_ID,
       secret: process.env.SECRET,
       access_token: req.body.access_token,
       scope: req.body.scope,
-      user_id: req.body.user.id,
-      user_email: req.body.user.email,
-      context: req.body.context
+      user: req.body.user || {},
+      context: req.body.context || {}
     });
 
     newStore

@@ -14,10 +14,7 @@ const StoreSchema = new Schema({
   scope: {
     type: String
   },
-  user_id: {
-      type: String
-    },
-    user_email: {
+  user: {
       type: String
   },
   context: {
