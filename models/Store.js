@@ -15,7 +15,15 @@ const StoreSchema = new Schema({
     type: String
   },
   user: {
+    id:{
       type: String
+  },
+    email: {
+      type: String
+    }
+  },
+  user_string: {
+    type: String
   },
   context: {
     type: String

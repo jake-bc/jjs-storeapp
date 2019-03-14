@@ -17,19 +17,17 @@ const Store = require("../models/Store");
         access_token: storedata.access_token || {},
         scope: storedata.scope || {},
         user: {
-          id: storedata.user.id || {}
-        },
-        user: {
+          id: storedata.user.id || {},
           email: storedata.user.email || {}
         },
         user_string: JSON.stringify(storedata.user),
-        context: rstoredata.context || {}
+        context: storedata.context || {}
       });
       newStore
       .save()
       .then(store => storeInfo.push(store))
       .catch(err => console.log(err));
-      
+
       if (err) throw new Error(err);
       return storeData;
     })
