@@ -5,8 +5,9 @@ var B = require('../config/keys').B
 router.get('/',(req, res, next) => {
     try {
       const data = B.verify(req.query['signed_payload']);
-      res.render('integrations/welcome', { title: 'Welcome!', data: data });
+      res.render('home', { title: 'Welcome!', data: data });
     } catch (err) {
+      res.render('home', { title: 'Welcome!', data: data })
       next(err);
     }
   });

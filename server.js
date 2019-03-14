@@ -5,9 +5,19 @@ var express = require('express'),
     bodyParser = require("body-parser"),
     auth = require('./routes/auth'),
     load = require('./routes/load'),
-    products = require('./routes/catalog/products')
+    products = require('./routes/catalog/products');
+    var AirbrakeClient = require('airbrake-js')
+    var airbrakeExpress = require('airbrake-js/dist/instrumentation/express')
 
 const app = express();
+
+  var airbrake = new AirbrakeClient({
+    projectId: 218372,
+    projectKey: '83eef3a216bc62a95fabde08e95b6762'
+  });
+  
+// This middleware should be used before any routes are defined.
+app.use(airbrakeExpress.makeMiddleware(airbrake))
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -59,6 +69,10 @@ app.use('/products', products);
 app.get("/", function (req, res) {
     res.render('home');
 });
+
+// Error handler middleware should be the last one.
+// See http://expressjs.com/en/guide/error-handling.html
+app.use(airbrakeExpress.makeErrorHandler(airbrake))
 
 // listen for requests :)
 const port = process.env.PORT || 5000;
