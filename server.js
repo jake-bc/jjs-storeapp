@@ -8,8 +8,19 @@ var express = require('express'),
     products = require('./routes/catalog/products');
     var AirbrakeClient = require('airbrake-js')
     var airbrakeExpress = require('airbrake-js/dist/instrumentation/express')
+    var dotenv = require('dotenv');
+    dotenv.load();
 
 const app = express();
+// DB Config
+const db = process.env.MLABS;
+
+// Connect to MongoDB
+mongoose
+  .connect(db)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
+
 
   var airbrake = new AirbrakeClient({
     projectId: 218372,
