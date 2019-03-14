@@ -1,5 +1,5 @@
 {
-  "name": "jjs-app",
+  "name": "jjs-store-app",
   "version": "0.0.1",
   "description": "jjs test app",
   "main": "server.js",

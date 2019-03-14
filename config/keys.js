@@ -13,14 +13,17 @@ var B = new BigCommerce({
     apiVersion: 'v3' 
 });
 
-var v3 = new BigCommerce({
-    clientId: process.env.CLIENT_ID,
-    secret: process.env.CLIENT_SECRET,
-    accessToken: 
-    responseType: 'json',
-    apiVersion: 'v3'
-})
+Store.findOne({client_id: process.env.CLIENT_ID}).then(store => {
+        var v3 = new BigCommerce({
+            clientId: process.env.CLIENT_ID,
+            secret: process.env.CLIENT_SECRET,
+            accessToken: store.access_token,
+            responseType: 'json',
+            apiVersion: 'v3'
+        })
 
 module.exports = {
-    B: B
+    B: B,
+    v3: v3
 };
+})
