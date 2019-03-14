@@ -1,10 +1,8 @@
 var path = require('path'),
     express = require('express'),
     request = require('request'),
-    BigCommerce = require('node-bigcommerce'),
     exphbs = require('express-handlebars'),
     mongoose = require("mongoose"),
-    dotenv = require('dotenv'),
     assert = require('assert'),
     app = express(),
     cors = require('cors'),
@@ -14,22 +12,6 @@ var path = require('path'),
     products = require('./routes/catalog/products')
     router = express.Router();
 
-
-dotenv.load();
-
-var config = {
-    bigCommerce: {
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        accessToken: process.env.ACCESS_TOKEN,
-        storeHash: process.env.STORE_HASH,
-        scope: process.env.SCOPE,
-        callback: '/auth',
-        apiVersion: 'v3',
-        responseType: 'json'
-    }
-};
-B = new BigCommerce(config.bigCommerce);
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
