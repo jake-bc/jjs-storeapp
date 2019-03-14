@@ -8,7 +8,7 @@ var B = new BigCommerce({
     secret: process.env.CLIENT_SECRET,
     callback: 'https://jjsstoreapp.herokuapp.com/auth',
     responseType: 'json',
-    apiVersion: 'v3' // Default is v2
+    apiVersion: 'v3' 
 });
 
 module.exports = {
