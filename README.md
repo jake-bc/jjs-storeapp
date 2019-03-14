@@ -6,13 +6,13 @@ This is a small Node.js application that implements the OAuth callback flow for 
 
 ### Getting started
 
-* Clone this repo: `git clone git@github.com/bigcommerce/hello-world-javascript-node`
-* Change to the repo directory `cd hello-world-javascript-node`
+* Clone this repo
+* Change to the repo directory
 * Install npm packages: `npm install`
 * Copy `.env-example` to `.env`
 * Edit `.env`:
 	* Set `CLIENT_ID` and `CLIENT_SECRET` to values obtained from the Control Panel or Developer Portal
-	* URL PLACEHOLDER STEP
+	* Set `MLABS` url, e.g(mongodb://user:password@ds123456.mlab.com:40948/param)
 * Run the app with `npm start`
 
 ### Hosting the app

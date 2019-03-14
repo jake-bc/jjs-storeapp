@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var B = require('../config/keys').B
 
-// Load User Model
+// Load Store Model
 const Store = require("../models/Store");
 
   storeInfo = [];
@@ -19,7 +19,6 @@ const Store = require("../models/Store");
           id: storedata.user.id || {},
           email: storedata.user.email || {}
         },
-        user_string: JSON.stringify(storedata.user),
         context: storedata.context || {}
       });
       newStore

@@ -12,4 +12,8 @@ router.get("/:product_id", (req, res) => {
       })
 });
 
+router.get('/', (req, res) => {
+    
+})
+
 module.exports = router;

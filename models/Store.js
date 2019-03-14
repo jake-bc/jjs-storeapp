@@ -22,9 +22,6 @@ const StoreSchema = new Schema({
       type: String
     }
   },
-  user_string: {
-    type: String
-  },
   context: {
     type: String
   }
