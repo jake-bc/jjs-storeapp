@@ -6,7 +6,7 @@ var B = new BigCommerce({
     logLevel: 'info',
     clientId: process.env.CLIENT_ID,
     secret: process.env.CLIENT_SECRET,
-    callback: 'https://myapplication.com/auth',
+    callback: 'https://jjsstoreapp.herokuapp.com/auth',
     responseType: 'json',
     apiVersion: 'v3' // Default is v2
 });
