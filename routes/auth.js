@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var B = require('../config/keys').B
 
-
 router.get('/', (req, res, next) => {
     B.authorize(req.query, (data) => {
       console.log(data)
