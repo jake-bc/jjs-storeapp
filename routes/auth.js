@@ -9,8 +9,7 @@ const Store = require("../models/Store");
 
   router.get('/', function(req, res) {
     B.authorize(req.query, function(err, data) {
-      res.status(200).json({"body": data})
-      var storedata = JSON.parse(data)
+      var storedata = data
       const newStore = new Store({
         client_id: process.env.CLIENT_ID,
         secret: process.env.SECRET,
@@ -27,7 +26,7 @@ const Store = require("../models/Store");
       .save()
       .then(store => storeInfo.push(store))
       .catch(err => console.log(err));
-
+      res.status(200).json({"body": data})
       if (err) throw new Error(err);
       return storeData;
     })
