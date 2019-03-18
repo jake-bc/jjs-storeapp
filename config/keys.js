@@ -2,28 +2,28 @@ var BigCommerce = require('node-bigcommerce');
 var dotenv = require('dotenv');
 dotenv.load();
 
-const Store = require("../models/Store");
+console.log(token);
+    var v3 = new BigCommerce({
+        clientId: process.env.CLIENT_ID,
+        secret: process.env.CLIENT_SECRET,
+        accessToken: '2sw8ugjlzkb0wk4t0uus99xskqciojg',
+        hash: 'xegfh',
+        responseType: 'json',
+        apiVersion: 'v3'
+    });
 
-var B = new BigCommerce({
-    logLevel: 'info',
-    clientId: process.env.CLIENT_ID,
-    secret: process.env.CLIENT_SECRET,
-    callback: 'https://jjsstoreapp.herokuapp.com/auth',
-    responseType: 'json',
-    apiVersion: 'v3' 
-});
-
-Store.findOne({client_id: process.env.CLIENT_ID}).then(store => {
-        var v3 = new BigCommerce({
+        var B = new BigCommerce({
+            logLevel: 'info',
             clientId: process.env.CLIENT_ID,
             secret: process.env.CLIENT_SECRET,
-            accessToken: store.access_token,
+            callback: 'https://jjsstoreapp.herokuapp.com/auth',
             responseType: 'json',
-            apiVersion: 'v3'
-        })
+            apiVersion: 'v3' 
+        });
+
 
 module.exports = {
     B: B,
     v3: v3
 };
-})
+

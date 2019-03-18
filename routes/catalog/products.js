@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var B = require('../../config/keys').B
+var v3 = require('../../config/keys').v3
 
 router.get("/:product_id", (req, res) => {
     var product_id = req.params.product_id;//gets xavg234
-    B.get('/catalog/products/'+product_id+'/variants?include_fields=calculated_price,inventory_level,sku,option_values,image_url')
+    v3.get('/catalog/products/'+product_id+'/variants?include_fields=calculated_price,inventory_level,sku,option_values,image_url')
     .then(data => res.json(data))
     .catch((error) => {
         console.log('error: ', error)
@@ -13,7 +13,11 @@ router.get("/:product_id", (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    
+    v3.get('/catalog/products/')
+    .then(data => res.json(data))
+    .catch((err) => {
+        return res.status(404).json({ _err: err });
+      })
 })
 
 module.exports = router;
