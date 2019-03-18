@@ -27,7 +27,7 @@ const Store = require("../models/Store");
       .catch(err => console.log(err));
       res.status(200).json({"body": data})
       if (err) throw new Error(err);
-      return storeData;
+      return storedata;
     })
     
   });
