@@ -2,7 +2,6 @@ var BigCommerce = require('node-bigcommerce');
 var dotenv = require('dotenv');
 dotenv.load();
 
-console.log(token);
     var v3 = new BigCommerce({
         clientId: process.env.CLIENT_ID,
         secret: process.env.CLIENT_SECRET,
