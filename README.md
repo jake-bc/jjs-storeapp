@@ -1,6 +1,6 @@
 # BigCommerce Sample App: Node.js
 
-This is a small Node.js application that implements the OAuth callback flow for BIgCommerce [Single Click Apps][single_click_apps] and uses the [BigCommerce API][api_client] to pull a list of products on a BigcCommerce store. For information on how to develop apps for BigCommerce stores, see our [Developer Portal][devdocs].
+This is a small Node.js application that implements the OAuth callback flow for BIgCommerce [Single Click Apps][single_click_apps]. For information on how to develop apps for BigCommerce stores, see our [Developer Portal][devdocs].
 
 ### Registering the app with BigCommerce
 
@@ -13,6 +13,7 @@ This is a small Node.js application that implements the OAuth callback flow for 
 * Edit `.env`:
 	* Set `CLIENT_ID` and `CLIENT_SECRET` to values obtained from the Control Panel or Developer Portal
 	* Set `MLABS` url, e.g(mongodb://user:password@ds123456.mlab.com:40948/param)
+* You can remove the Airbrake setup in server.js it's optional, I just found it helpful.
 * Run the app with `npm start`
 
 ### Hosting the app

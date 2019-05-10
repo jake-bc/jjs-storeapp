@@ -5,10 +5,9 @@ var express = require('express'),
     bodyParser = require("body-parser"),
     auth = require('./routes/auth'),
     load = require('./routes/load'),
-    products = require('./routes/catalog/products');
-    var AirbrakeClient = require('airbrake-js')
-    var airbrakeExpress = require('airbrake-js/dist/instrumentation/express')
-    var dotenv = require('dotenv');
+    AirbrakeClient = require('airbrake-js')
+    airbrakeExpress = require('airbrake-js/dist/instrumentation/express')
+    dotenv = require('dotenv');
     dotenv.load();
 
 const app = express();
@@ -23,8 +22,8 @@ mongoose
 
 
   var airbrake = new AirbrakeClient({
-    projectId: 218372,
-    projectKey: '83eef3a216bc62a95fabde08e95b6762'
+    projectId: process.env.AIRBRAKE_PROJECT_ID,
+    projectKey: process.env.AIRBRAKE_API_KEY
   });
   
 // This middleware should be used before any routes are defined.
@@ -47,7 +46,6 @@ app.use(express.static('views'));
 
 app.use('/auth', auth);
 app.use('/load', load);
-app.use('/products', products);
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {

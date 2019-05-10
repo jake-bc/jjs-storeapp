@@ -23,7 +23,7 @@
     "node": "6.10.x"
   },
   "repository": {
-    "url": "https://github.com/bigcommerce/hello-world-javascript-node"
+    "url": "https://github.com/jake-bc/jjs-storeapp"
   },
   "license": "MIT",
   "keywords": [
